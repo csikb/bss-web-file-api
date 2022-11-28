@@ -12,7 +12,7 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: poetry
-  lint-black:
+  lint:
     executor: python
     steps:
       - checkout
@@ -20,8 +20,9 @@ jobs:
           pkg-manager: poetry
       - run: poetry run isort . --check
       - run: poetry run black --check .
+      - run: poetry run mypy -p src.bss_web_file_server
 workflows:
   app:
     jobs:
       - install
-      - lint-black
+      - lint

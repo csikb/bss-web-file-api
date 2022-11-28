@@ -3,7 +3,7 @@ from io import BytesIO
 from pathlib import Path
 from uuid import UUID
 
-import pillow_avif
+import pillow_avif  # type: ignore
 from PIL import Image
 
 from src.bss_web_file_server.config import settings
