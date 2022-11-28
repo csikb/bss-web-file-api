@@ -12,7 +12,15 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: poetry
+  lint-black:
+    executor: python
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - run: black --check .
 workflows:
   app:
     jobs:
       - install
+      - lint-black
