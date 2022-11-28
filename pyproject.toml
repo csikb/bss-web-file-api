@@ -20,7 +20,7 @@ pre-commit = "^2.20.0"
 pylint = "^2.15.5"
 black = "^22.10.0"
 isort = "^5.10.1"
-bandit = "^1.7.4"
+types-Pillow = "^9.3.0.2"
 
 [tool.poetry.group.test.dependencies]
 httpx = "^0.23.0"
@@ -29,15 +29,10 @@ pytest-mock = "^3.10.0"
 mypy = "^0.991"
 
 [tool.poetry.scripts]
-start = "uvicorn src.bss.web.main:app"
-lint = "black --check ."
+start = "uvicorn src.bss_web_file_server.main:app"
 
 [tool.isort]
 profile = "black"
-
-[tool.bandit]
-targets = ["app"]
-exclude_dirs = ["tests"]
 
 [build-system]
 requires = ["poetry-core"]

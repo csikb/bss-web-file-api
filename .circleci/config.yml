@@ -18,7 +18,8 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: poetry
-      - run: poetry lint
+      - run: poetry run isort . --check
+      - run: poetry run black --check .
 workflows:
   app:
     jobs:

@@ -1,13 +1,13 @@
 from uuid import UUID
 
-from fastapi import APIRouter, UploadFile, status, Response
+from fastapi import APIRouter, Response, UploadFile, status
 
-from bss_web_file_server.services.video import (
+from src.bss_web_file_server.services.video import (
     Video,
     create_folder_structure,
     create_thumbnails,
-    video_path,
     update_symlinks,
+    video_path,
 )
 
 router = APIRouter(tags=["Video"])
