@@ -6,12 +6,6 @@ executors:
     docker:
       - image: cimg/python:3.11.0
 jobs:
-  install:
-    executor: python
-    steps:
-      - checkout
-      - python/install-packages:
-          pkg-manager: poetry
   lint:
     executor: python
     steps:
@@ -24,5 +18,7 @@ jobs:
 workflows:
   app:
     jobs:
-      - install
       - lint
+      - python/test:
+          pkg-manager: poetry
+          test-tool: pytest
