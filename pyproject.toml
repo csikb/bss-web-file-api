@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "BSS file server API"
 authors = ["Bence Csik <bence@csik.dev>"]
 readme = "README.md"
-packages = [{include = "bss_web_file_server"}]
+packages = [{include = "bss_web_file_server", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
