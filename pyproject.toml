@@ -30,6 +30,7 @@ mypy = "^0.991"
 
 [tool.poetry.scripts]
 start = "uvicorn src.bss.web.main:app"
+lint = "black --check ."
 
 [tool.isort]
 profile = "black"

@@ -18,7 +18,7 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: poetry
-      - run: black --check .
+      - run: poetry lint
 workflows:
   app:
     jobs:
