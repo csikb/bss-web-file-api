@@ -3,8 +3,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Response, UploadFile, status
 
-from app.models.member import Member
-from app.services.member import (
+from bss_web_file_server.models.member import Member
+from bss_web_file_server.services.member import (
     create_folder_structure,
     create_thumbnails,
     member_path,

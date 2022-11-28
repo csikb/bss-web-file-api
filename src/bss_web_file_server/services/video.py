@@ -5,8 +5,8 @@ from uuid import UUID
 
 from PIL import Image
 
-from app.config import settings
-from app.models.video import Video
+from bss_web_file_server.config import settings
+from bss_web_file_server.models.video import Video
 
 Poster = namedtuple("Poster", ["width", "height", "name"])
 short_path = Path(settings.server_base_path, "v")

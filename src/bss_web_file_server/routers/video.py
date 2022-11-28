@@ -2,7 +2,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, UploadFile, status, Response
 
-from app.services.video import (
+from bss_web_file_server.services.video import (
     Video,
     create_folder_structure,
     create_thumbnails,
