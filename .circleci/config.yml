@@ -7,7 +7,7 @@ executors:
       - image: cimg/python:3.11.0
 jobs:
   install:
-    executor: python/default
+    executor: python
     steps:
       - checkout
       - python/install-packages:
