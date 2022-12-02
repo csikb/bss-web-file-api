@@ -14,15 +14,7 @@ RUN pip install --no-cache /wheels/*
 
 COPY ./src ./src
 
-<<<<<<< HEAD
 RUN mkdir -p /usr/share/bss/{m,member,v,video}
-=======
-RUN mkdir -p /usr/share/bss        \
-             /usr/share/bss/m      \
-             /usr/share/bss/member \
-             /usr/share/bss/v      \
-             /usr/share/bss/video
->>>>>>> origin/main
 ENV SERVER_BASE_PATH="/usr/share/bss"
 
 CMD ["uvicorn", "src.bss_web_file_server.main:app", "--host", "0.0.0.0", "--port", "80"]
