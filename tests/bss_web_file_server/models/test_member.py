@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from bss_web_file_server.models.member import Member
+from src.bss_web_file_server.models.member import Member
 
 
 def test_should_create_member():
