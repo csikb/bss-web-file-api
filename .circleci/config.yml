@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   python: circleci/python@2.1.1
+  docker: circleci/docker@2.1.4
 executors:
   python:
     docker:
@@ -22,3 +23,6 @@ workflows:
       - python/test:
           pkg-manager: poetry
           test-tool: pytest
+      - docker/publish:
+          deploy: false
+      - docker/hadolint
