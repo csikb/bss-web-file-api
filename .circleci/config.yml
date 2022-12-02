@@ -1,14 +1,10 @@
 version: 2.1
 orbs:
   python: circleci/python@2.1.1
-  docker: circleci/docker@2.1.4
-executors:
-  python:
-    docker:
-      - image: cimg/python:3.11.0
 jobs:
   lint:
-    executor: python
+    docker:
+      - image: cimg/python:3.11.0
     steps:
       - checkout
       - python/install-packages:
@@ -23,7 +19,3 @@ workflows:
       - python/test:
           pkg-manager: poetry
           test-tool: pytest
-      - docker/publish:
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-          deploy: false
-      - docker/hadolint
