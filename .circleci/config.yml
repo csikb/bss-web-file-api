@@ -24,5 +24,6 @@ workflows:
           pkg-manager: poetry
           test-tool: pytest
       - docker/publish:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           deploy: false
       - docker/hadolint
