@@ -3,6 +3,13 @@ version: 2.1
 orbs:
   go: circleci/go@1.11.0
   docker: circleci/docker@2.5.0
+executors:
+  go:
+    docker:
+      - image: cimg/go:1.22.0
+  golangci-lint:
+    docker:
+      - image: golangci/golangci-lint:v1.56.1-alpine
 workflows:
   Build:
     jobs:
@@ -19,9 +26,15 @@ workflows:
           use-buildkit: true
           use-remote-docker: true
 jobs:
+  build:
+    executor:
+      name: go
+    steps:
+      - checkout
+      - go/mod-download-cached
+      - run: go build ./cmd/fileapi
   lint:
-    docker:
-      - image: golangci/golangci-lint:v1.56.1-alpine
+    executor: golangci-lint
     steps:
       - checkout
       - run:
