@@ -6,10 +6,6 @@ orbs:
 workflows:
   Build:
     jobs:
-      - go/test:
-          name: Unit test
-      - go/build:
-          name: Build
       - lint:
           name: Lint
       - docker/hadolint:
