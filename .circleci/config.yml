@@ -1,0 +1,32 @@
+version: 2.1
+# Create a workflow that will lint, build, test a Go project
+orbs:
+  go: circleci/go@1.11.0
+  docker: circleci/docker@2.5.0
+workflows:
+  Build:
+    jobs:
+      - go/test:
+          name: Unit test
+      - go/build:
+          name: Build
+      - lint:
+          name: Lint
+      - docker/hadolint:
+          name: Dockerfile lint
+      - docker/publish:
+          name: Docker build
+          deploy: false
+          executor: docker/docker
+          remote-docker-dlc: true
+          remote-docker-version: default
+          use-buildkit: true
+          use-remote-docker: true
+jobs:
+  lint:
+    docker:
+      - image: golangci/golangci-lint:v1.56.1-alpine
+    steps:
+      - checkout
+      - run:
+          command: golangci-lint run build -E

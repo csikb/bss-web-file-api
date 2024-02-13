@@ -17,16 +17,7 @@
 !README.md
 !LICENSE
 
-!Makefile
-
 !Dockerfile
-!.dockerignore
-
-!.goreleaser.yaml
-
-!.circleci/*
 
 # ...even if they are in subdirectories
 !*/
-
-dist/
