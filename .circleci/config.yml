@@ -19,3 +19,4 @@ workflows:
       - python/test:
           pkg-manager: poetry
           test-tool: pytest
+          version: 3.12.1
