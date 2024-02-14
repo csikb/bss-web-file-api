@@ -12,7 +12,8 @@ executors:
       - image: golangci/golangci-lint:v1.56.1-alpine
 defaults:
   docker_build: &docker-build
-    image: bsstudio/bss-web-file-api
+    image: BSStudio/bss-web-file-api
+    registry: ghcr.io
     executor: docker/docker
     remote-docker-dlc: true
     remote-docker-version: default
@@ -76,6 +77,7 @@ jobs:
     steps:
       - checkout
       - go/mod-download-cached
+      - go/install-goreleaser
       - go/goreleaser-release:
           validate-yaml: true
           publish-release: true
