@@ -12,7 +12,7 @@ executors:
       - image: golangci/golangci-lint:v1.56.1-alpine
 defaults:
   docker_build: &docker-build
-    image: BSStudio/bss-web-file-api
+    image: bsstudio/bss-web-file-api
     registry: ghcr.io
     tag: latest
     executor: docker/docker
