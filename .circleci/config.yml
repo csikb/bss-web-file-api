@@ -50,4 +50,4 @@ jobs:
     steps:
       - checkout
       - run:
-          command: golangci-lint run build -E
+          command: golangci-lint run build
