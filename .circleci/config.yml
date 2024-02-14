@@ -14,6 +14,7 @@ defaults:
   docker_build: &docker-build
     image: BSStudio/bss-web-file-api
     registry: ghcr.io
+    tag: latest
     executor: docker/docker
     remote-docker-dlc: true
     remote-docker-version: default
@@ -46,6 +47,7 @@ workflows:
           name: Docker build
           deploy: true
           <<: [*docker-build, *tag-only]
+          tag: latest,<< pipeline.git.tag >>
       - release:
           name: Release
           <<: *tag-only
