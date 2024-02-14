@@ -81,5 +81,6 @@ jobs:
       - go/mod-download-cached
       - go/install-goreleaser
       - go/goreleaser-release:
+          project-path: $HOME/project
           validate-yaml: true
           publish-release: true
