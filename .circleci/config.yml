@@ -23,6 +23,7 @@ workflows:
           name: Dockerfile lint
       - docker/publish:
           name: Docker build
+          image: bsstudio/bss-web-file-api
           deploy: false
           executor: docker/docker
           remote-docker-dlc: true
