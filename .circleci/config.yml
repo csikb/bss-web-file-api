@@ -69,7 +69,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: golangci-lint run build
+          command: golangci-lint run
   release:
     executor:
       name: go
