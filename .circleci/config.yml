@@ -81,4 +81,4 @@ jobs:
       - go/mod-download-cached
       - go/install-goreleaser
       - run: goreleaser check
-      - run: goreleaser release --verbose
+      - run: goreleaser release
