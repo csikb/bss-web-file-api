@@ -1,0 +1,84 @@
+version: 2.1
+# Create a workflow that will lint, build, test a Go project
+orbs:
+  go: circleci/go@1.11.0
+  docker: circleci/docker@2.5.0
+executors:
+  go:
+    docker:
+      - image: cimg/go:1.22.0
+  golangci-lint:
+    docker:
+      - image: golangci/golangci-lint:v1.56.1-alpine
+defaults:
+  docker_build: &docker-build
+    image: bsstudio/bss-web-file-api
+    registry: ghcr.io
+    tag: latest
+    executor: docker/docker
+    remote-docker-dlc: true
+    remote-docker-version: default
+    use-buildkit: true
+    use-remote-docker: true
+  tag_only: &tag-only
+    filters:
+      branches:
+        ignore: /.*/
+      tags:
+        only: /.*/
+workflows:
+  Build:
+    jobs:
+      - build:
+          name: Build
+      - test:
+          name: Unit test
+      - lint:
+          name: Lint
+      - docker/hadolint:
+          name: Dockerfile lint
+      - docker/publish:
+          name: Dockerfile build
+          deploy: false
+          <<: *docker-build
+  Tag:
+    jobs:
+      - docker/publish:
+          name: Docker build
+          deploy: true
+          <<: [*docker-build, *tag-only]
+          tag: latest,<< pipeline.git.tag >>
+      - release:
+          name: Release
+          <<: *tag-only
+jobs:
+  build:
+    executor:
+      name: go
+    steps:
+      - checkout
+      - go/mod-download-cached
+      - run: go build ./cmd/fileapi
+  test:
+    executor:
+      name: go
+    steps:
+      - checkout
+      - go/mod-download-cached
+      - go/test:
+          covermode: atomic
+  lint:
+    executor: golangci-lint
+    steps:
+      - checkout
+      - run:
+          command: golangci-lint run
+  release:
+    executor:
+      name: go
+    steps:
+      - checkout
+      - go/mod-download-cached
+      - go/install-goreleaser
+      - run: goreleaser check
+      - run: goreleaser release --verbose
