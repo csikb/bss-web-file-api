@@ -13,6 +13,8 @@ executors:
 defaults:
   docker_build: &docker-build
     image: bsstudio/bss-web-file-api
+    registry: ghcr.io
+    tag: latest
     executor: docker/docker
     remote-docker-dlc: true
     remote-docker-version: default
@@ -45,6 +47,7 @@ workflows:
           name: Docker build
           deploy: true
           <<: [*docker-build, *tag-only]
+          tag: latest,<< pipeline.git.tag >>
       - release:
           name: Release
           <<: *tag-only
@@ -76,6 +79,7 @@ jobs:
     steps:
       - checkout
       - go/mod-download-cached
+      - go/install-goreleaser
       - go/goreleaser-release:
           validate-yaml: true
           publish-release: true
