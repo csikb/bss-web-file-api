@@ -44,7 +44,8 @@ jobs:
     steps:
       - checkout
       - go/mod-download-cached
-      - go/test
+      - go/test:
+          covermode: atomic
   lint:
     executor: golangci-lint
     steps:
