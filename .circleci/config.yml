@@ -36,7 +36,7 @@ workflows:
       - docker/hadolint:
           name: Dockerfile lint
       - docker/publish:
-          name: Docker build
+          name: Dockerfile build
           deploy: false
           <<: *docker-build
   Tag:
