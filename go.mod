@@ -1,6 +1,6 @@
 module bssweb.bsstudio.hu/file-api
 
-go 1.21.7
+go 1.22.0
 
 require github.com/gin-gonic/gin v1.9.1
 
