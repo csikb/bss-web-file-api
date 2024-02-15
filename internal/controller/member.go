@@ -2,12 +2,14 @@ package controller
 
 import (
 	"bssweb.bsstudio.hu/file-api/internal/model"
-	memberService "bssweb.bsstudio.hu/file-api/internal/service"
+	"bssweb.bsstudio.hu/file-api/internal/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-type MemberController struct{}
+type MemberController struct {
+	memberService service.MemberService
+}
 
 func (ctrl *MemberController) Create(context *gin.Context) {
 	var member model.Member
@@ -22,7 +24,7 @@ func (ctrl *MemberController) Create(context *gin.Context) {
 		return
 	}
 
-	if err := memberService.Create(member); err != nil {
+	if err := ctrl.memberService.Create(member); err != nil {
 		context.JSON(
 			http.StatusInternalServerError,
 			gin.H{
@@ -49,7 +51,7 @@ func (ctrl *MemberController) Update(context *gin.Context) {
 		return
 	}
 
-	if err := memberService.Update(member); err != nil {
+	if err := ctrl.memberService.Update(member); err != nil {
 		context.JSON(
 			http.StatusInternalServerError,
 			gin.H{
@@ -76,7 +78,7 @@ func (ctrl *MemberController) Archive(context *gin.Context) {
 		return
 	}
 
-	if err := memberService.Archive(member); err != nil {
+	if err := ctrl.memberService.Archive(member); err != nil {
 		context.JSON(
 			http.StatusInternalServerError,
 			gin.H{

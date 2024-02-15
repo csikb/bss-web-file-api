@@ -5,7 +5,10 @@ import (
 	"os"
 )
 
-func Create(member model.Member) error {
+type MemberService struct {
+}
+
+func (service *MemberService) Create(member model.Member) error {
 	// Create the member directory
 	memberDir := "/data/member/" + member.Id
 	if err := os.MkdirAll(memberDir, 0755); err != nil {
@@ -21,7 +24,7 @@ func Create(member model.Member) error {
 	return nil
 }
 
-func Update(member model.Member) error {
+func (service *MemberService) Update(member model.Member) error {
 	// remove symlink and create a new one
 	// get old symlink by following the symlink
 	oldSymlink, err := os.Readlink("/data/member/" + member.Id)
@@ -44,7 +47,7 @@ func Update(member model.Member) error {
 	return nil
 }
 
-func Archive(member model.Member) error {
+func (service *MemberService) Archive(member model.Member) error {
 	// remove symlink
 	memberSymlink := "/data/member/" + member.Url
 	if err := os.Remove(memberSymlink); err != nil {

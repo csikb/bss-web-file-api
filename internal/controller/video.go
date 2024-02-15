@@ -34,7 +34,6 @@ func (ctrl *VideoController) Update(context *gin.Context) {
 		)
 		return
 	}
-
 }
 
 func (ctrl *VideoController) Archive(context *gin.Context) {

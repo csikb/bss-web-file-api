@@ -8,7 +8,7 @@ import (
 func main() {
 	router := gin.Default()
 
-	healthController := new(controller.HealthController)
+	healthController := controller.HealthController{}
 	{
 		actuator := router.Group("/actuator")
 		{
@@ -17,7 +17,7 @@ func main() {
 		}
 	}
 
-	memberController := new(controller.MemberController)
+	memberController := controller.MemberController{}
 	{
 		member := router.Group("/member")
 		{
@@ -27,7 +27,7 @@ func main() {
 		}
 	}
 
-	videoController := new(controller.VideoController)
+	videoController := controller.VideoController{}
 	{
 		video := router.Group("/video")
 		{
