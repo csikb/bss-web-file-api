@@ -17,23 +17,26 @@ func main() {
 		}
 	}
 
-	memberController := controller.MemberController{}
+	api := router.Group("/api/v1")
 	{
-		member := router.Group("/member")
+		memberController := controller.MemberController{}
 		{
-			member.POST("/", memberController.Create)
-			member.PUT("/", memberController.Update)
-			member.DELETE("/", memberController.Archive)
+			member := api.Group("/member")
+			{
+				member.POST("/", memberController.Create)
+				member.PUT("/", memberController.Update)
+				member.DELETE("/", memberController.Archive)
+			}
 		}
-	}
 
-	videoController := controller.VideoController{}
-	{
-		video := router.Group("/video")
+		videoController := controller.VideoController{}
 		{
-			video.POST("/", videoController.Create)
-			video.PUT("/", videoController.Update)
-			video.DELETE("/", videoController.Archive)
+			video := api.Group("/video")
+			{
+				video.POST("/", videoController.Create)
+				video.PUT("/", videoController.Update)
+				video.DELETE("/", videoController.Archive)
+			}
 		}
 	}
 

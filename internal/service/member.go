@@ -1,22 +1,32 @@
 package service
 
 import (
+	"bssweb.bsstudio.hu/file-api/internal/config"
 	"bssweb.bsstudio.hu/file-api/internal/model"
+	"fmt"
 	"os"
+	"path/filepath"
 )
 
 type MemberService struct {
 }
 
+var basePath = config.DefaultConfig.BasePath
+
 func (service *MemberService) Create(member model.Member) error {
 	// Create the member directory
-	memberDir := "/data/member/" + member.Id
+	memberDir := basePath + "/m/" + member.Id
 	if err := os.MkdirAll(memberDir, 0755); err != nil {
 		return err
 	}
 
+	err2 := service.createFolderIfItDoesNotExist()
+	if err2 != nil {
+		return err2
+	}
+
 	// Create the symlink
-	memberSymlink := "/data/member/" + member.Url
+	memberSymlink := basePath + "/member/" + member.Url
 	if err := os.Symlink(memberDir, memberSymlink); err != nil {
 		return err
 	}
@@ -25,22 +35,15 @@ func (service *MemberService) Create(member model.Member) error {
 }
 
 func (service *MemberService) Update(member model.Member) error {
-	// remove symlink and create a new one
-	// get old symlink by following the symlink
-	oldSymlink, err := os.Readlink("/data/member/" + member.Id)
+	idPath := basePath + "/m/" + member.Id
 
-	if err == nil {
-		return err
-	}
-
-	// remove old symlink
-	if err := os.Remove(oldSymlink); err != nil {
+	if err := service.RemoveSymlinkForId(member); err != nil {
 		return err
 	}
 
 	// create new symlink
-	newSymlink := "/data/member/" + member.Url
-	if err := os.Symlink("/data/member/"+member.Id, newSymlink); err != nil {
+	newSymlink := basePath + "/member/" + member.Url
+	if err := os.Symlink(idPath, newSymlink); err != nil {
 		return err
 	}
 
@@ -49,17 +52,58 @@ func (service *MemberService) Update(member model.Member) error {
 
 func (service *MemberService) Archive(member model.Member) error {
 	// remove symlink
-	memberSymlink := "/data/member/" + member.Url
-	if err := os.Remove(memberSymlink); err != nil {
+	if err := service.RemoveSymlinkForId(member); err != nil {
 		return err
 	}
 
 	// move directory to archived
-	memberDir := "/data/member/" + member.Id
-	archivedDir := "/data/archived/members" + member.Id
+	memberDir := basePath + "/m/" + member.Id
+	archivedDir := basePath + "/archived/m/" + member.Id
 	if err := os.Rename(memberDir, archivedDir); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+func (service *MemberService) RemoveSymlinkForId(member model.Member) error {
+	idPath := basePath + "/m/" + member.Id
+
+	// loop trough `basePath + "/member/"` look at all the symlink
+	// and remove any of them that points to `idPath`
+	urlDir := basePath + "/member"
+	entries, err := os.ReadDir(urlDir)
+	if err != nil {
+		return err
+	}
+	for _, entry := range entries {
+		if entry.Type()&os.ModeSymlink != 0 {
+			symlinkPath := filepath.Join(urlDir, entry.Name())
+			targetPath, err := os.Readlink(symlinkPath)
+			if err != nil {
+				// Handle error reading symlink target
+				continue
+			}
+			if targetPath == idPath {
+				err := os.Remove(symlinkPath)
+				if err != nil {
+					// Handle error removing symlink
+					continue
+				}
+				fmt.Printf("Removed symlink %s pointing to %s\n", symlinkPath, targetPath)
+			}
+		}
+	}
+	return nil
+}
+
+func (service *MemberService) createFolderIfItDoesNotExist() error {
+	urlDir := basePath + "/member"
+	_, err := os.ReadDir(urlDir)
+	if err != nil {
+		if err := os.Mkdir(urlDir, 0755); err != nil {
+			return err
+		}
+	}
 	return nil
 }

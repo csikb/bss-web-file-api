@@ -6,7 +6,6 @@ import (
 )
 
 type HealthController struct {
-	context gin.Context
 }
 
 func (ctrl *HealthController) Ping(context *gin.Context) {

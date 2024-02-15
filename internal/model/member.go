@@ -1,6 +1,6 @@
 package model
 
 type Member struct {
-	Id  string
-	Url string
+	Id  string `json:"id" binding:"required"`
+	Url string `json:"url" binding:"required"`
 }
