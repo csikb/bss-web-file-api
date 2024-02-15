@@ -9,13 +9,7 @@ func main() {
 	router := gin.Default()
 
 	healthController := controller.HealthController{}
-	{
-		actuator := router.Group("/actuator")
-		{
-			actuator.GET("/ping", healthController.Ping)
-			actuator.GET("/health", healthController.Health)
-		}
-	}
+	healthController.SetupRouter(router)
 
 	api := router.Group("/api/v1")
 	{

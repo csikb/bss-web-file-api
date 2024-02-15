@@ -15,7 +15,7 @@ var DefaultConfig = newConfig()
 func newConfig() Config {
 	v := viper.New()
 	{
-		v.SetDefault("BASE_PATH", "$HOME/Documents")
+		v.SetDefault("BASE_PATH", "$HOME/fileapi")
 		v.AutomaticEnv()
 		if err := v.BindEnv("BASE_PATH"); err != nil {
 			panic(err)
