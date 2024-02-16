@@ -24,11 +24,40 @@ The uuid can not be changed.
 
 The file structure will look like this:
 ```
-│
-├─ m/
-│  ├─ <uuid>/
-├─ member/
-│  ├─ <url>/ --> /m/<uuid>
+📁
+├─ 📁 m/
+│  ├─ 📁 <uuid>/
+│  │  ├─ 🖼️ profilePicture.jpg
+│  │  ├─ 🖼️ profilePicture.png
+│  │  ├─ 🖼️ profilePicture.webp
+│  │  ├─ 🖼️ profilePicture.avif
+├─ 📁 member/
+│  ├─ 📁 <url>/ --> /m/<uuid>
+├─ 📁 v/
+│  ├─ 📁 <uuid>/
+│  │  ├─ 📄️ prog_index.m3u8
+│  │  ├─ 📁️ thumbnail/
+│  │  │  ├─ 🖼️ thumbnail.jpg
+│  │  │  ├─ 🖼️ thumbnail.png
+│  │  │  ├─ 🖼️ thumbnail.webp
+│  │  │  ├─ 🖼️ thumbnail.avif
+│  │  ├─ 📁️ v1/
+│  │  │  ├─ 📄️ prog_index.m3u8
+│  │  │  ├─ 🎞️ fileSequence0.ts
+│  │  │  ├─ [...]
+│  │  ├─ 📁️ a1/
+│  │  │  ├─ 📄️ prog_index.m3u8
+│  │  │  ├─ 🎵️ fileSequence0.aac
+│  │  │  ├─ [...]
+├─ 📁 video/
+│  ├─ 📁 <url>/ --> /v/<uuid>
+├─ 📁 e/
+│  │  ├─ 🖼️ thumbnail.jpg
+│  │  ├─ 🖼️ thumbnail.png
+│  │  ├─ 🖼️ thumbnail.webp
+│  │  ├─ 🖼️ thumbnail.avif
+├─ 📁 event/
+│  ├─ 📁 <url>/ --> /e/<uuid>
 ```
 The videos are hosted from the video studio's on premise server.
 To make the workflow easier, the video editors need a convenient way to upload the videos to the server.
