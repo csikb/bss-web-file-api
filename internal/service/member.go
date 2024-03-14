@@ -20,7 +20,7 @@ func (service *MemberService) Create(member model.Member) error {
 		return err
 	}
 
-	err2 := service.createFolderIfItDoesNotExist()
+	err2 := service.createFolderIfItDoesNotExist(basePath + "/member")
 	if err2 != nil {
 		return err2
 	}
@@ -97,8 +97,7 @@ func (service *MemberService) RemoveSymlinkForId(member model.Member) error {
 	return nil
 }
 
-func (service *MemberService) createFolderIfItDoesNotExist() error {
-	urlDir := basePath + "/member"
+func (service *MemberService) createFolderIfItDoesNotExist(urlDir string) error {
 	_, err := os.ReadDir(urlDir)
 	if err != nil {
 		if err := os.Mkdir(urlDir, 0755); err != nil {

@@ -8,7 +8,16 @@ import (
 
 type VideoController struct{}
 
-func (ctrl *VideoController) Create(context *gin.Context) {
+func (ctrl *VideoController) SetupRouter(api *gin.RouterGroup) {
+	video := api.Group("/video")
+	{
+		video.POST("/", ctrl.create)
+		video.PUT("/", ctrl.update)
+		video.DELETE("/", ctrl.archive)
+	}
+}
+
+func (ctrl *VideoController) create(context *gin.Context) {
 	var video model.Video
 	if err := context.ShouldBindJSON(&video); err != nil {
 		context.JSON(
@@ -22,7 +31,7 @@ func (ctrl *VideoController) Create(context *gin.Context) {
 	}
 }
 
-func (ctrl *VideoController) Update(context *gin.Context) {
+func (ctrl *VideoController) update(context *gin.Context) {
 	var video model.Video
 	if err := context.ShouldBindJSON(&video); err != nil {
 		context.JSON(
@@ -36,7 +45,7 @@ func (ctrl *VideoController) Update(context *gin.Context) {
 	}
 }
 
-func (ctrl *VideoController) Archive(context *gin.Context) {
+func (ctrl *VideoController) archive(context *gin.Context) {
 	var video model.Video
 	if err := context.ShouldBindJSON(&video); err != nil {
 		context.JSON(

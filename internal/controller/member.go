@@ -11,7 +11,17 @@ type MemberController struct {
 	memberService service.MemberService
 }
 
-func (ctrl *MemberController) Create(context *gin.Context) {
+func (ctrl *MemberController) SetupRouter(router *gin.RouterGroup) {
+	ctrl.memberService = service.MemberService{}
+	member := router.Group("/member")
+	{
+		member.POST("/", ctrl.create)
+		member.PUT("/", ctrl.update)
+		member.DELETE("/", ctrl.archive)
+	}
+}
+
+func (ctrl *MemberController) create(context *gin.Context) {
 	var member model.Member
 	if err := context.ShouldBindJSON(&member); err != nil {
 		context.JSON(
@@ -38,7 +48,7 @@ func (ctrl *MemberController) Create(context *gin.Context) {
 	context.JSON(http.StatusCreated, member)
 }
 
-func (ctrl *MemberController) Update(context *gin.Context) {
+func (ctrl *MemberController) update(context *gin.Context) {
 	var member model.Member
 	if err := context.ShouldBindJSON(&member); err != nil {
 		context.JSON(
@@ -65,7 +75,7 @@ func (ctrl *MemberController) Update(context *gin.Context) {
 	context.JSON(http.StatusOK, member)
 }
 
-func (ctrl *MemberController) Archive(context *gin.Context) {
+func (ctrl *MemberController) archive(context *gin.Context) {
 	var member model.Member
 	if err := context.ShouldBindJSON(&member); err != nil {
 		context.JSON(

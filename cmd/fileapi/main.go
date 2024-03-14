@@ -14,24 +14,10 @@ func main() {
 	api := router.Group("/api/v1")
 	{
 		memberController := controller.MemberController{}
-		{
-			member := api.Group("/member")
-			{
-				member.POST("/", memberController.Create)
-				member.PUT("/", memberController.Update)
-				member.DELETE("/", memberController.Archive)
-			}
-		}
+		memberController.SetupRouter(api)
 
 		videoController := controller.VideoController{}
-		{
-			video := api.Group("/video")
-			{
-				video.POST("/", videoController.Create)
-				video.PUT("/", videoController.Update)
-				video.DELETE("/", videoController.Archive)
-			}
-		}
+		videoController.SetupRouter(api)
 	}
 
 	if err := router.Run(); err != nil {
