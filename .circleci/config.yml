@@ -9,7 +9,7 @@ executors:
       - image: cimg/go:1.22.1
   golangci-lint:
     docker:
-      - image: golangci/golangci-lint:v1.56.1-alpine
+      - image: golangci/golangci-lint:v1.56.2-alpine
 defaults:
   docker_build: &docker-build
     image: bsstudio/bss-web-file-api
