@@ -4,7 +4,7 @@ orbs:
 jobs:
   lint:
     docker:
-      - image: cimg/python:3.12.1
+      - image: cimg/python:3.12.2
     steps:
       - checkout
       - python/install-packages:
