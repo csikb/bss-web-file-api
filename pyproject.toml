@@ -8,7 +8,7 @@ packages = [{include = "bss_web_file_server", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = "0.109.2"
+fastapi = "0.110.0"
 pillow = "10.2.0"
 uvicorn = {extras = ["standard"], version = "0.27.1"}
 python-multipart = "0.0.9"
