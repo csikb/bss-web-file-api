@@ -12,6 +12,7 @@ app.include_router(health.router)
 app.include_router(video.router)
 app.include_router(member.router)
 
+
 @app.on_event("startup")
 async def startup_event():
     """Create the base paths for the video and member folders on startup."""
