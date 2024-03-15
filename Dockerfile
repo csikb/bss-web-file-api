@@ -20,8 +20,8 @@ FROM python:3.12-slim as app
 
 WORKDIR /app
 
-COPY --from=builder /app/wheels /wheels
-COPY --from=builder /app/requirements.txt .
+COPY --from=builder /app/wheels ./wheels
+COPY --from=builder /app/requirements.txt ./
 
 RUN pip install --no-cache-dir ./wheels/*
 
