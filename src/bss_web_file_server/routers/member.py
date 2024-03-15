@@ -1,4 +1,4 @@
-"""Module for /api/v1/member related routes."""
+"""Member endpoints."""
 
 import re
 from uuid import UUID

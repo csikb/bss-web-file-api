@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "80:80"
+    environment:
+      SERVER_BASE_PATH: /assets
+    healthcheck:
+      test: "wget --tries=1 --no-verbose -qO- http://localhost:80/health | grep -q UP"
+      start_period: 5s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./assets:/assets

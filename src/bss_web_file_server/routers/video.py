@@ -1,4 +1,4 @@
-"""Module for /api/v1/video related routes."""
+"""Video endpoints"""
 
 import re
 from uuid import UUID
