@@ -18,9 +18,9 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir ./wheels -r requirements.txt
 FROM python:3.12-slim AS app
 
 # use non-root user
-RUN addgroup -S user && adduser -S user -G user
-USER user:user
-WORKDIR /home/user
+RUN addgroup -S abc && adduser -S abc -G abc
+USER abc:abc
+WORKDIR /home/abc
 
     # python
 ENV PYTHONUNBUFFERED=1 \
