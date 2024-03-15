@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   python: circleci/python@2.1.1
   docker: circleci/docker@2.5.0
+  github-cli: circleci/github-cli@2.3.0
 executors:
   python:
     docker:
@@ -15,6 +16,12 @@ defaults:
     use-remote-docker: true
     remote-docker-dlc: true
     use-buildkit: true
+  tag_only: &tag_only
+    filters:
+      branches:
+        ignore: /.*/
+      tags:
+        only: /.*/
 jobs:
   lint:
     executor: python
@@ -33,12 +40,25 @@ jobs:
           pkg-manager: poetry
       - run: poetry export -o requirements.txt
       - run: git diff --exit-code
+  github_release:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - github-cli/install:
+          version: 2.43.1
+      - github-cli/setup:
+          version: 2.43.1
+      - run: gh release create << pipeline.git.tag >> -t << pipeline.git.tag >> --generate-notes
 workflows:
   Build:
     jobs:
-      - lint
-      - verify-requirements
+      - lint:
+          name: Lint
+      - verify-requirements:
+          name: Verify requirements.txt
       - python/test:
+          name: Unit tests
           pkg-manager: poetry
           test-tool: pytest
           version: 3.12.2
@@ -48,3 +68,12 @@ workflows:
           name: Build docker image
           <<: *docker_publish
           deploy: false
+  Release:
+    jobs:
+      - docker/publish:
+          name: Publish image
+          <<: [*docker_publish, *tag_only]
+          tag: latest,<< pipeline.git.tag >>
+      - github_release:
+          name: Create release
+          <<: *tag_only
