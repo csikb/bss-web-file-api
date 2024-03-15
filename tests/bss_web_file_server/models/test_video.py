@@ -4,8 +4,9 @@ from bss_web_file_server.models.video import Video
 
 
 def test_should_create_video():
-    url = "url"
+    urls = ["url1", "url2"]
     uid = UUID("{12345678-1234-5678-1234-567812345678}")
-    video = Video(id=uid, url=url)
+    video = Video(id=uid, urls=urls)
     assert video.id is uid
-    assert video.url is url
+    for i in range(len(urls)):
+        assert video.urls[i] is urls[i]
