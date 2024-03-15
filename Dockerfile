@@ -15,7 +15,7 @@ COPY ./requirements.txt ./
 
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir ./wheels -r requirements.txt
 
-FROM python:3.12-slim as app
+FROM python:3.12-slim AS app
 
 # use non-root user
 RUN addgroup -S user && adduser -S user -G user
