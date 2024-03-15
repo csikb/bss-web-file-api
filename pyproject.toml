@@ -9,12 +9,10 @@ packages = [{include = "bss_web_file_server", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.12"
 fastapi = {extras=["all"], version="0.110.0"}
-pillow = "10.2.0"
 uvicorn = {extras = ["standard"], version = "0.28.0"}
-python-multipart = "0.0.9"
+pillow = "10.2.0"
 pillow-avif-plugin = "1.4.3"
-pytest-mock = "3.12.0"
-
+python-multipart = "0.0.9"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "3.6.2"

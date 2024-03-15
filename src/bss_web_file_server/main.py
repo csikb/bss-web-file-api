@@ -1,3 +1,5 @@
+"""Main module for the FastAPI application."""
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
@@ -19,6 +21,6 @@ app.mount(
 
 @app.on_event("startup")
 async def startup_event():
-    # create the base folders
+    """Create the base paths for the video and member folders on startup."""
     create_video_base_path()
     create_member_base_path()
