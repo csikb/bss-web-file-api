@@ -1,10 +1,13 @@
 version: 2.1
 orbs:
   python: circleci/python@2.1.1
-jobs:
-  lint:
+executors:
+  python:
     docker:
       - image: cimg/python:3.12.2
+jobs:
+  lint:
+    executor: python
     steps:
       - checkout
       - python/install-packages:
@@ -12,10 +15,20 @@ jobs:
       - run: poetry run isort . --check
       - run: poetry run black . --check
       - run: poetry run mypy -p src.bss_web_file_server
+  verify-requirements:
+    executor: python
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - run: poetry export -o requirements.txt
+      - run: git diff --exit-code
 workflows:
   Build:
     jobs:
       - lint
+      - verify-requirements
       - python/test:
           pkg-manager: poetry
           test-tool: pytest
+          version: 3.12.2
