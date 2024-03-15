@@ -60,7 +60,7 @@ async def upload_member_picture(member_id: UUID, file: UploadFile):
             content="Mime is not an image format",
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
-    # pylint: disable=duplicate-code
+    # pylint: enable=duplicate-code
     file_content = await file.read()
     create_profile_picture(file_content, member_id)
     return member_id
