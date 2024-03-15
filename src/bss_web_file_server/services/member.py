@@ -3,9 +3,9 @@
 from pathlib import Path
 from uuid import UUID
 
-from .image import ImgFormat, create_images
-from ..settings import settings
 from ..models.member import Member
+from ..settings import settings
+from .image import ImgFormat, create_images
 
 id_paths_base = Path(settings.server_base_path, "m")
 url_paths_base = Path(settings.server_base_path, "member")

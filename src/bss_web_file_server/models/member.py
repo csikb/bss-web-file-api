@@ -1,6 +1,7 @@
 """ A module for storing the member model. """
 
 from uuid import UUID
+
 from pydantic import BaseModel
 
 

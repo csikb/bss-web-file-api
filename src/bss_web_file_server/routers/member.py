@@ -2,13 +2,15 @@
 
 import re
 from uuid import UUID
+
 from fastapi import APIRouter, Response, UploadFile, status
+
 from ..models.member import Member
 from ..services.member import (
     create_folder_structure,
     create_profile_picture,
-    update_symlink,
     to_id_path,
+    update_symlink,
 )
 
 router = APIRouter(tags=["Member"], prefix="/api/v1/member")

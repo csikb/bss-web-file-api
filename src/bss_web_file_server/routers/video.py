@@ -9,8 +9,8 @@ from ..services.video import (
     Video,
     create_folder_structure,
     create_thumbnails,
-    update_symlinks,
     to_id_path,
+    update_symlinks,
 )
 
 router = APIRouter(tags=["Video"], prefix="/api/v1/video")
