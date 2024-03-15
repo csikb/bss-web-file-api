@@ -16,9 +16,9 @@ def create_images(img_file: bytes, image_path: Path, image_sizes: list[ImgFormat
     """
     This method will create the images in three formats: avif, webp and jpeg
     The files will be created in the given image_path with the given image_sizes
-    :param img_file:
-    :param image_path:
-    :param image_sizes:
+    :param img_file: the image file
+    :param image_path: the path where the images will be saved
+    :param image_sizes: the sizes of the images
     :return: None
     """
     with Image.open(BytesIO(img_file)) as image:

@@ -55,7 +55,7 @@ async def upload_member_picture(member_id: UUID, file: UploadFile):
     if not to_id_path(member_id).exists():
         return Response(status_code=status.HTTP_404_NOT_FOUND)
     # pylint: disable=duplicate-code
-    if not re.match("image/.+", file.content_type):
+    if file.content_type is not None and not re.match("image/.+", file.content_type):
         return Response(
             content="Mime is not an image format",
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
