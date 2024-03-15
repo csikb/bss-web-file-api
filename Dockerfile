@@ -1,4 +1,4 @@
-FROM python:3.12-slim as base
+FROM python:3.12 as base
 
 WORKDIR /app
 
@@ -14,11 +14,9 @@ ENV PYTHONUNBUFFERED=1 \
 FROM base as builder
 COPY ./requirements.txt ./
 
-RUN apt-get update
-RUN apt-get install --no-install-recommends -y build-essential
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir ./wheels -r requirements.txt
 
-FROM base as app
+FROM python:3.12-alpine as app
 
 COPY --from=builder /app/wheels /wheels
 COPY --from=builder /app/requirements.txt .
