@@ -1,10 +1,20 @@
 version: 2.1
 orbs:
   python: circleci/python@2.1.1
+  docker: circleci/docker@2.5.0
 executors:
   python:
     docker:
       - image: cimg/python:3.12.2
+defaults:
+  docker_publish: &docker_publish
+    image: bsstudio/bss-web-file-api
+    registry: ghcr.io
+    executor: docker/docker
+    remote-docker-version: default
+    use-remote-docker: true
+    remote-docker-dlc: true
+    use-buildkit: true
 jobs:
   lint:
     executor: python
@@ -32,3 +42,9 @@ workflows:
           pkg-manager: poetry
           test-tool: pytest
           version: 3.12.2
+      - docker/hadolint:
+          name: Lint Dockerfile
+      - docker/publish:
+          name: Build docker image
+          <<: *docker_publish
+          deploy: false
