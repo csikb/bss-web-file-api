@@ -14,12 +14,7 @@ ENV PYTHONUNBUFFERED=1 \
 FROM base as builder
 COPY ./requirements.txt ./
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
-        # deps for installing poetry
-        curl \
-        # deps for building python deps
-        build-essential
+RUN apt-get install --no-install-recommends -y build-essential
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir ./wheels -r requirements.txt
 
 FROM python:3.12-alpine
@@ -27,7 +22,7 @@ FROM python:3.12-alpine
 COPY --from=builder /app/wheels /wheels
 COPY --from=builder /app/requirements.txt .
 
-RUN pip install --no-cache /wheels/*
+RUN pip install --no-cache ./wheels/*
 
 COPY ./src ./src
 
