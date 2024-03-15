@@ -6,6 +6,7 @@ from ..services.member import (
     create_folder_structure,
     create_thumbnails,
     update_symlink,
+    to_id_path,
 )
 
 router = APIRouter(tags=["Member"])
@@ -19,6 +20,8 @@ def create_member_folder(member: Member):
 
 @router.put("/api/v1/member", response_model=Member)
 def update_member_folder(member: Member):
+    if not to_id_path(member.id).exists():
+        return Response(status_code=status.HTTP_404_NOT_FOUND)
     update_symlink(member)
     return member
 

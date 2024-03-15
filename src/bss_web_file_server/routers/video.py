@@ -1,3 +1,4 @@
+import re
 from uuid import UUID
 
 from fastapi import APIRouter, Response, UploadFile, status
@@ -29,6 +30,11 @@ def update_video_folder(video: Video):
 
 @router.post("/{video_id}/poster", response_model=UUID)
 async def upload_video_poster(video_id: UUID, file: UploadFile):
+    if not re.match("image/.+", file.content_type):
+        return Response(
+            content="Mime is not an image format",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
     content = await file.read()
     create_thumbnails(content, video_id)
     return video_id
