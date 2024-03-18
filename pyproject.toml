@@ -30,6 +30,9 @@ mypy = "1.9.0"
 [tool.isort]
 profile = "black"
 
+[tool.mypy]
+packages= "src"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
