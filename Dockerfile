@@ -18,7 +18,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir ./wheels -r requirements.txt
 FROM python:3.12-slim AS app
 
 # use non-root user
-RUN adduser --system --group --home /home/abc abc
+RUN useradd abc --create-home
 USER abc:abc
 WORKDIR /home/abc
 
@@ -35,6 +35,7 @@ COPY --from=builder /app/wheels ./wheels
 COPY --from=builder /app/requirements.txt ./
 
 RUN pip install --no-cache-dir ./wheels/*
+ENV PATH="/home/abc/.local/bin:${PATH}"
 
 COPY ./src ./src
 
