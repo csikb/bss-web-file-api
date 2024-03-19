@@ -9,6 +9,7 @@ from .image import ImgFormat, create_images
 
 
 class MemberService:
+    """Member service class."""
 
     def __init__(self, base_path: str = settings.server_base_path):
         self.id_paths_base = Path(base_path, "m")

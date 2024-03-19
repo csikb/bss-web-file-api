@@ -1,7 +1,6 @@
 """This module contains all video related service logic."""
 
 from pathlib import Path
-from typing import Annotated
 from uuid import UUID
 
 from ..models.video import Video
@@ -10,6 +9,7 @@ from .image import ImgFormat, create_images
 
 
 class VideoService:
+    """Video service class."""
 
     def __init__(self, base_path: str = settings.server_base_path):
         self.id_paths_base = Path(base_path, "v")

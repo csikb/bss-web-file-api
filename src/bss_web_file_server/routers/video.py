@@ -3,23 +3,20 @@
 import re
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Response, UploadFile, status
+from fastapi import APIRouter, Response, UploadFile, status
 
 from ..models.video import Video
 from ..services.video import VideoService
 
 router = APIRouter(tags=["Video"], prefix="/api/v1/video")
+service: VideoService = VideoService()
 
 
 @router.post("", response_model=Video)
-def create_video_folder(
-    video: Video,
-    service: VideoService = Depends(VideoService),
-):
+def create_video_folder(video: Video):
     """
     Create a folder structure for a video and return the video object.
     :param video: Video object
-    :param service: VideoService
     :return: 200 and the original video object
     """
     service.create_folder_structure(video)
@@ -27,15 +24,11 @@ def create_video_folder(
 
 
 @router.put("", response_model=Video)
-def update_video_folder(
-    video: Video,
-    service: VideoService = Depends(VideoService),
-):
+def update_video_folder(video: Video):
     """
     Update the folder structure for a video and return the video object.
     If the video does not exist, return a 404.
     :param video: Video object
-    :param service: VideoService
     :return: 200 and the original video object
     """
     if not service.to_id_path(video.id).exists():
@@ -45,11 +38,7 @@ def update_video_folder(
 
 
 @router.post("/{video_id}/thumbnail", response_model=UUID)
-async def upload_video_poster(
-    video_id: UUID,
-    file: UploadFile,
-    service: VideoService = Depends(VideoService),
-):
+async def upload_video_poster(video_id: UUID, file: UploadFile):
     """
     Upload a picture for a video thumbnail to convert
     and store the thumbnail in different formats
@@ -57,18 +46,17 @@ async def upload_video_poster(
     If the file is not an image, return a 500.
     :param video_id: the id of the video
     :param file: the image file
-    :param service: VideoService
     :return: 200 and the original video_id
     """
+    # pylint: disable=duplicate-code
     if not service.to_id_path(video_id).exists():
         return Response(status_code=status.HTTP_404_NOT_FOUND)
-    # pylint: disable=duplicate-code
     if file.content_type is not None and not re.match("image/.+", file.content_type):
         return Response(
             content="Mime is not an image format",
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
-    # pylint: enable=duplicate-code
     file_content = await file.read()
+    # pylint: enable=duplicate-code
     service.create_thumbnails(file_content, video_id)
     return video_id

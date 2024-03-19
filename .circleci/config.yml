@@ -31,6 +31,7 @@ jobs:
           pkg-manager: poetry
       - run: poetry run isort . --check
       - run: poetry run black . --check
+      - run: poetry run pylint src
       - run: poetry run mypy -p src.bss_web_file_server
   verify-requirements:
     executor: python
