@@ -21,7 +21,7 @@ def member_service(tmp_path):
     :return: member service
     """
     service = MemberService(base_path=str(tmp_path))
-    service.create_member_base_path()
+    service.create_base_path()
     assert service.id_paths_base.exists()
     assert service.url_paths_base.exists()
     return service

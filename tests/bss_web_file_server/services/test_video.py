@@ -21,7 +21,7 @@ def video_service(tmp_path):
     :return: video service
     """
     service = VideoService(base_path=str(tmp_path))
-    service.create_video_base_path()
+    service.create_base_path()
     assert service.id_paths_base.exists()
     assert service.url_paths_base.exists()
     return service

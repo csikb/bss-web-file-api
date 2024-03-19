@@ -1,6 +1,7 @@
 """This module contains all video related service logic."""
 
 from pathlib import Path
+from typing import Annotated
 from uuid import UUID
 
 from ..models.video import Video
@@ -69,7 +70,7 @@ class VideoService:
             )
 
     # pylint: disable=duplicate-code
-    def create_video_base_path(self):
+    def create_base_path(self):
         """This method will create the parent folder for all id and url folders."""
         if not self.id_paths_base.exists():
             self.id_paths_base.mkdir(parents=True, exist_ok=True)

@@ -1,10 +1,12 @@
 """Main module for the FastAPI application."""
 
+from typing import Annotated
+
 from fastapi import FastAPI
 
 from .routers import health, member, video
-from .services.member import create_member_base_path
-from .services.video import create_video_base_path
+from .services.member import MemberService
+from .services.video import VideoService
 
 app = FastAPI()
 
@@ -14,7 +16,10 @@ app.include_router(member.router)
 
 
 @app.on_event("startup")
-async def startup_event():
+async def startup_event(
+    member_service=MemberService(),
+    video_service=VideoService(),
+):
     """Create the base paths for the video and member folders on startup."""
-    create_video_base_path()
-    create_member_base_path()
+    video_service.create_base_path()
+    member_service.create_base_path()

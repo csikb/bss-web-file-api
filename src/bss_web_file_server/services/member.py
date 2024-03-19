@@ -67,7 +67,7 @@ class MemberService:
         )
 
     # pylint: disable=duplicate-code
-    def create_member_base_path(self):
+    def create_base_path(self):
         """
         This method will create the parent folder for all id and url folders.
         """
