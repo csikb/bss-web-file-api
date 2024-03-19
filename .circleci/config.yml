@@ -67,6 +67,8 @@ workflows:
     jobs:
       - lint:
           name: Lint
+      - coverage:
+          name: Coverage
       - verify-requirements:
           name: Verify requirements.txt
       - python/test:
