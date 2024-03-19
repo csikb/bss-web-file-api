@@ -8,8 +8,8 @@ packages = [{include = "bss_web_file_server", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = {extras=["all"], version="0.110.0"}
-uvicorn = {extras = ["standard"], version = "0.28.0"}
+fastapi = {version="0.110.0", extras=["all"]}
+uvicorn = {version = "0.28.0", extras = ["standard"]}
 pillow = "10.2.0"
 pillow-avif-plugin = "1.4.3"
 python-multipart = "0.0.9"
@@ -20,6 +20,7 @@ pylint = "3.1.0"
 black = "24.3.0"
 isort = "5.13.2"
 types-Pillow = "10.1.0.2"
+coverage = {version = "^7.4.4", extras = ["test"]}
 
 [tool.poetry.group.test.dependencies]
 httpx = "^0.23.0"
