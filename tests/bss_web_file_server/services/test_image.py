@@ -3,7 +3,7 @@ from pathlib import Path
 from bss_web_file_server.services.image import ImgFormat, create_images
 
 
-def test_create_iamges(tmp_path):
+def test_create_images(tmp_path):
     img_file = Path(__file__).parent.joinpath("mountains.jpg").read_bytes()
     image_sizes = [
         ImgFormat(300, 300, "large"),
