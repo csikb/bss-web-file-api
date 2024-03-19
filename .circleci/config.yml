@@ -51,6 +51,17 @@ jobs:
       - github-cli/setup:
           version: 2.43.1
       - run: gh release create << pipeline.git.tag >> -t << pipeline.git.tag >> --generate-notes
+  coverage:
+    executor: python
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - run: poetry run pytest --cov=src --cov-report=xml:./test-results/results/coverage.xml --cov-report=html:./test-results/coverage --cov-fail-under=100
+      - store_test_results:
+          path: test-results/results
+      - store_artifacts:
+          path: test-results/artifacts
 workflows:
   Build:
     jobs:

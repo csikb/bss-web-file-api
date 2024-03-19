@@ -20,12 +20,12 @@ pylint = "3.1.0"
 black = "24.3.0"
 isort = "5.13.2"
 types-Pillow = "10.1.0.2"
-coverage = {version = "^7.4.4", extras = ["test"]}
 
 [tool.poetry.group.test.dependencies]
 httpx = "^0.23.0"
 pytest = "^8.0.0"
 pytest-mock = "^3.10.0"
+pytest-cov = "^4.1.0"
 mypy = "1.9.0"
 
 [tool.isort]
