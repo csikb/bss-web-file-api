@@ -3,8 +3,8 @@ from uuid import uuid4
 
 import pytest
 
-from bss_web_file_server.models.video import Video
-from bss_web_file_server.services.video import VideoService
+from src.models.video import Video
+from src.services.video import VideoService
 
 id = uuid4()
 video = Video(id=id, urls=["test_url0", "test_url1"])
@@ -61,9 +61,7 @@ def test_update_symlink_no_id(video_service):
 
 
 def test_create_video_thumbnail(video_service, mocker):
-    mock_create_images = mocker.patch(
-        "bss_web_file_server.services.video.create_images"
-    )
+    mock_create_images = mocker.patch("src.services.video.create_images")
     mock_create_images.return_value = None
     video_service.create_folder_structure(video)
 

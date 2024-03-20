@@ -2,8 +2,8 @@ import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from bss_web_file_server.models.video import Video
-from bss_web_file_server.routers import video
+from src.models.video import Video
+from src.routers import video
 
 
 @pytest.fixture
@@ -19,7 +19,7 @@ video_object = Video(
 
 
 def test_create_video_folder(client, mocker):
-    service_mock = mocker.patch("bss_web_file_server.routers.video.service")
+    service_mock = mocker.patch("src.routers.video.service")
     service_mock.create_folder_structure.return_value = None
 
     video_data = {"id": str(video_object.id), "urls": video_object.urls}
@@ -33,7 +33,7 @@ def test_create_video_folder(client, mocker):
 
 
 def test_update_video_folder_no_id(client, mocker):
-    service_mock = mocker.patch("bss_web_file_server.routers.video.service")
+    service_mock = mocker.patch("src.routers.video.service")
     service_mock.to_id_path.return_value.exists.return_value = False
 
     video_data = {"id": str(video_object.id), "urls": video_object.urls}
@@ -45,7 +45,7 @@ def test_update_video_folder_no_id(client, mocker):
 
 
 def test_update_video_folder(client, mocker):
-    service_mock = mocker.patch("bss_web_file_server.routers.video.service")
+    service_mock = mocker.patch("src.routers.video.service")
     service_mock.to_id_path.return_value.exists.return_value = True
     service_mock.update_symlinks.return_value = None
 
@@ -60,7 +60,7 @@ def test_update_video_folder(client, mocker):
 
 
 def test_upload_video_poster_no_id(client, mocker):
-    service_mock = mocker.patch("bss_web_file_server.routers.video.service")
+    service_mock = mocker.patch("src.routers.video.service")
     service_mock.to_id_path.return_value.exists.return_value = False
 
     response = client.post(
@@ -73,7 +73,7 @@ def test_upload_video_poster_no_id(client, mocker):
 
 
 def test_upload_video_poster_not_image(client, mocker):
-    service_mock = mocker.patch("bss_web_file_server.routers.video.service")
+    service_mock = mocker.patch("src.routers.video.service")
     service_mock.to_id_path.return_value.exists.return_value = True
 
     response = client.post(
@@ -87,7 +87,7 @@ def test_upload_video_poster_not_image(client, mocker):
 
 
 def test_upload_video_poster(client, mocker):
-    service_mock = mocker.patch("bss_web_file_server.routers.video.service")
+    service_mock = mocker.patch("src.routers.video.service")
     service_mock.to_id_path.return_value.exists.return_value = True
     service_mock.create_thumbnails.return_value = None
 

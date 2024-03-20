@@ -1,10 +1,9 @@
 [tool.poetry]
 name = "bss-web-file-server"
-version = "0.1.0"
 description = "BSS file server API"
 authors = ["Bence Csik <bence@csik.dev>"]
 readme = "README.md"
-packages = [{include = "bss_web_file_server", from = "src"}]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -12,21 +11,22 @@ fastapi = {version="0.110.0", extras=["all"]}
 uvicorn = {version = "0.29.0", extras = ["standard"]}
 pillow = "10.2.0"
 pillow-avif-plugin = "1.4.3"
+# used for UploadFile
 python-multipart = "0.0.9"
 
 [tool.poetry.group.dev.dependencies]
+black = "24.3.0"
 pre-commit = "3.6.2"
 pylint = "3.1.0"
-black = "24.3.0"
 isort = "5.13.2"
 types-Pillow = "10.2.0.20240311"
+mypy = "1.9.0"
 
 [tool.poetry.group.test.dependencies]
 httpx = "^0.23.0"
 pytest = "^8.0.0"
 pytest-mock = "^3.10.0"
 pytest-cov = "^4.1.0"
-mypy = "1.9.0"
 
 [tool.isort]
 profile = "black"

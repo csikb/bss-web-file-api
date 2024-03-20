@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from bss_web_file_server.routers import health
+from src.routers import health
 
 app = FastAPI()
 app.include_router(health.router)
