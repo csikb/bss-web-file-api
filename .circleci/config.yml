@@ -58,7 +58,11 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: poetry
-      - run: poetry run pytest --cov=src --cov-fail-under=100 --cov-report=html --cov-report json
+      - run: |
+          poetry run pytest --cov=src \
+          --cov-fail-under=100 \
+          --cov-report=html \
+          --cov-report json
       - codecov/upload
       - store_artifacts:
           path: htmlcov
