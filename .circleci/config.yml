@@ -34,14 +34,6 @@ jobs:
       - run: poetry run black . --check
       - run: poetry run pylint src
       - run: poetry run mypy -p src
-  verify-requirements:
-    executor: python
-    steps:
-      - checkout
-      - python/install-packages:
-          pkg-manager: poetry
-      - run: poetry export -o requirements.txt
-      - run: git diff --exit-code
   github_release:
     docker:
       - image: cimg/base:stable
@@ -73,8 +65,6 @@ workflows:
           name: Lint
       - coverage:
           name: Coverage
-      - verify-requirements:
-          name: Verify requirements.txt
       - python/test:
           name: Unit tests
           pkg-manager: poetry
