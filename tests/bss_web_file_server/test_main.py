@@ -1,21 +1,17 @@
-from fastapi import APIRouter
 from fastapi.testclient import TestClient
+from pytest_mock import MockerFixture
 
 from bss_web_file_server.main import app
 
 
-def test_main_startup(mocker):
-    mocker.patch("bss_web_file_server.routers.health").router = APIRouter()
-    mocker.patch("bss_web_file_server.routers.member").router = APIRouter()
-    mocker.patch("bss_web_file_server.routers.video").router = APIRouter()
-
-    member_service_mock = mocker.patch("bss_web_file_server.main.MemberService")
-    member_service_mock.create_base_path.return_value = None
-    video_service_mock = mocker.patch("bss_web_file_server.main.VideoService")
-    video_service_mock.create_base_path.return_value = None
+def test_main_startup(mocker: MockerFixture):
+    mock_video_service = mocker.patch("bss_web_file_server.main.video_service")
+    mock_member_service = mocker.patch("bss_web_file_server.main.member_service")
+    mock_member_service.create_base_path = mocker.AsyncMock()
+    mock_video_service.create_base_path = mocker.AsyncMock()
 
     with TestClient(app) as client:
         response = client.get("/docs")
         assert response.status_code == 200
-    # assert member_service_mock.create_base_path.call_count == 1
-    # assert video_service_mock.create_base_path.call_count == 1
+    assert mock_video_service.create_base_path.call_count == 1
+    assert mock_member_service.create_base_path.call_count == 1

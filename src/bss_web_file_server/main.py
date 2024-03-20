@@ -13,7 +13,7 @@ video_service = VideoService()
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(api: FastAPI):  # pylint: disable=unused-argument
     """Create the base paths for the video and member folders on startup."""
     video_service.create_base_path()
     member_service.create_base_path()
