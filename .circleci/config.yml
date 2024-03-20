@@ -57,11 +57,9 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: poetry
-      - run: poetry run pytest --cov=src --cov-report=xml:./test-results/results/coverage.xml --cov-report=html:./test-results/artifacts --cov-fail-under=100
-      - store_test_results:
-          path: test-results/results
+      - run: poetry run pytest --cov=src  --cov-report=html --cov-fail-under=100
       - store_artifacts:
-          path: test-results/artifacts
+          path: htmlcov
 workflows:
   Build:
     jobs:
