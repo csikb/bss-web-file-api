@@ -12,11 +12,11 @@ ENV PYTHONUNBUFFERED=1 \
 
 FROM builder-base AS lock
 
-RUN pip install poetry==1.8.2
+RUN pip install --no-cache-dir poetry==1.8.2
 COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry export  --output requirements.txt
 
-FROM python:3.12 AS builder
+FROM builder-base AS builder
 
 COPY --from=lock /app/requirements.txt ./
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir ./wheels -r requirements.txt
