@@ -20,7 +20,7 @@ RUN adduser --system --group --home /home/nonroot nonroot
 ENV PATH="/home/nonroot/.local/bin:${PATH}"
 USER nonroot:nonroot
 
-WORKDIR /app
+WORKDIR /home/nonroot/app
 
     # python
 ENV PYTHONUNBUFFERED=1 \
