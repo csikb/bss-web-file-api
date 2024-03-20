@@ -3,6 +3,7 @@ orbs:
   python: circleci/python@2.1.1
   docker: circleci/docker@2.5.0
   github-cli: circleci/github-cli@2.3.0
+  codecov: codecov/codecov@4.0.1
 executors:
   python:
     docker:
@@ -58,6 +59,7 @@ jobs:
       - python/install-packages:
           pkg-manager: poetry
       - run: poetry run pytest --cov=src  --cov-report=html --cov-fail-under=100
+      - codecov/upload
       - store_artifacts:
           path: htmlcov
 workflows:
