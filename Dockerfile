@@ -37,8 +37,8 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on
 
-COPY --from=builder /builder/wheels ./wheels
-COPY --from=builder /builder/requirements.txt ./
+COPY --from=builder /app/wheels ./wheels
+COPY --from=builder /app/requirements.txt ./
 
 RUN pip install --no-cache-dir ./wheels/*
 
