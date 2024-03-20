@@ -1,7 +1,6 @@
-FROM python:3.12 as builder
+FROM python:3.12 AS builder
 
-WORKDIR /app
-
+WORKDIR /builder
     # python
 ENV PYTHONUNBUFFERED=1 \
     # prevents python creating .pyc files
@@ -17,6 +16,10 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir ./wheels -r requirements.txt
 
 FROM python:3.12-slim AS app
 
+RUN adduser --system --group --home /home/nonroot nonroot
+ENV PATH="/home/nonroot/.local/bin:${PATH}"
+USER nonroot:nonroot
+
 WORKDIR /app
 
     # python
@@ -28,11 +31,10 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on
 
-COPY --from=builder /app/wheels ./wheels
-COPY --from=builder /app/requirements.txt ./
+COPY --from=builder /builder/wheels ./wheels
+COPY --from=builder /builder/requirements.txt ./
 
 RUN pip install --no-cache-dir ./wheels/*
-ENV PATH="/home/abc/.local/bin:${PATH}"
 
 COPY ./src ./src
 
