@@ -1,10 +1,9 @@
 """Video endpoints"""
 
 import re
-from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Response, UploadFile, status
+from fastapi import APIRouter, Response, UploadFile, status
 
 from ..models.video import Video
 from ..services.video import VideoService
