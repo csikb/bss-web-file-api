@@ -58,6 +58,8 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: poetry
+          pre-install-steps:
+            - run: pipx install poetry
       - run: poetry run pytest tests-int
   github_release:
     docker:
