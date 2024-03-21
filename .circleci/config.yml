@@ -8,6 +8,10 @@ executors:
   python:
     docker:
       - image: cimg/python:3.12.2
+  python-machine:
+    machine:
+      docker_layer_caching: true
+      image: ubuntu-2204:edge
 defaults:
   docker_publish: &docker_publish
     image: bsstudio/bss-web-file-api
@@ -34,16 +38,6 @@ jobs:
       - run: poetry run black . --check
       - run: poetry run pylint src
       - run: poetry run mypy -p src
-  github_release:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - github-cli/install:
-          version: 2.43.1
-      - github-cli/setup:
-          version: 2.43.1
-      - run: gh release create << pipeline.git.tag >> -t << pipeline.git.tag >> --generate-notes
   coverage:
     executor: python
     steps:
@@ -58,6 +52,23 @@ jobs:
       - codecov/upload
       - store_artifacts:
           path: htmlcov
+  integration:
+    executor: python-machine
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+      - run: poetry run pytest tests-int
+  github_release:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - github-cli/install:
+          version: 2.43.1
+      - github-cli/setup:
+          version: 2.43.1
+      - run: gh release create << pipeline.git.tag >> -t << pipeline.git.tag >> --generate-notes
 workflows:
   Build:
     jobs:

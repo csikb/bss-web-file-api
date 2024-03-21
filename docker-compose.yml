@@ -6,14 +6,14 @@ services:
     ports:
       - "80"
     environment:
-      SERVER_BASE_PATH: /assets
+      SERVER_BASE_PATH: /home/nonroot/assets
     healthcheck:
-      test: "wget --tries=1 --no-verbose -qO- http://localhost:80/health | grep -q UP"
-      start_period: 5s
+      test: python -c "import requests, sys; sys.exit(0 if 'UP' in requests.get('http://localhost/health').text else 1)"
+      start_period: 2s
       interval: 10s
       timeout: 5s
       retries: 5
     volumes:
-      - assets:/assets
+      - ./assets:/home/nonroot/assets
 volumes:
   assets:
