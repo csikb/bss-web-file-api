@@ -6,7 +6,7 @@ services:
     ports:
       - "80"
     environment:
-      SERVER_BASE_PATH: /home/nonroot/assets
+      SERVER_BASE_PATH: /assets
     healthcheck:
       test: python -c "import requests, sys; sys.exit(0 if 'UP' in requests.get('http://localhost/health').text else 1)"
       start_period: 2s
@@ -14,6 +14,6 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - ./assets:/home/nonroot/assets
+      - ./assets:/assets
 volumes:
   assets:
