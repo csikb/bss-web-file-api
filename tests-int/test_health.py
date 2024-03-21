@@ -20,15 +20,17 @@ def compose():
 
 
 def test_health(compose: DockerCompose):
+    host = compose.get_service_host("app")
     port = compose.get_service_port("app", 80)
     assert "Application startup complete." in compose.get_logs("app")[0]
-    response = requests.get(f"http://localhost:{port}/health")
+    response = requests.get(f"http://{host}:{port}/health")
     assert response.status_code == 200
     assert response.text == "UP"
 
 
 def test_ping(compose: DockerCompose):
+    host = compose.get_service_host("app")
     port = compose.get_service_port("app", 80)
-    response = requests.get(f"http://localhost:{port}/ping")
+    response = requests.get(f"http://{host}:{port}/ping")
     assert response.status_code == 200
     assert response.text == "PONG"
