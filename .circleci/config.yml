@@ -45,7 +45,7 @@ jobs:
       - python/install-packages:
           pkg-manager: poetry
       - run: |
-          poetry run pytest --cov=src \
+          poetry run pytest tests --cov=src \
           --cov-fail-under=100 \
           --cov-report=html \
           --cov-report json
