@@ -24,7 +24,7 @@ def test_create_video_folder(client, mocker):
 
     video_data = {"id": str(video_object.id), "urls": video_object.urls}
 
-    response = client.post("/api/v1/video", json=video_data)
+    response = client.post("/api/v1/video", json=video_data, auth=("admin", "password"))
 
     assert service_mock.create_folder_structure.call_count == 1
     assert service_mock.create_folder_structure.call_args[0][0] == video_object
@@ -38,7 +38,7 @@ def test_update_video_folder_no_id(client, mocker):
 
     video_data = {"id": str(video_object.id), "urls": video_object.urls}
 
-    response = client.put("/api/v1/video", json=video_data)
+    response = client.put("/api/v1/video", json=video_data, auth=("admin", "password"))
 
     assert service_mock.update_symlinks.call_count == 0
     assert response.status_code == 404
@@ -51,7 +51,7 @@ def test_update_video_folder(client, mocker):
 
     video_data = {"id": str(video_object.id), "urls": video_object.urls}
 
-    response = client.put("/api/v1/video", json=video_data)
+    response = client.put("/api/v1/video", json=video_data, auth=("admin", "password"))
 
     assert service_mock.update_symlinks.call_count == 1
     assert service_mock.update_symlinks.call_args[0][0] == video_object
@@ -66,6 +66,7 @@ def test_upload_video_poster_no_id(client, mocker):
     response = client.post(
         f"/api/v1/video/{video_object.id}/thumbnail",
         files={"file": ("file.jpg", "file_content", "text/plain")},
+        auth=("admin", "password"),
     )
 
     assert service_mock.create_thumbnail.call_count == 0
@@ -79,6 +80,7 @@ def test_upload_video_poster_not_image(client, mocker):
     response = client.post(
         f"/api/v1/video/{video_object.id}/thumbnail",
         files={"file": ("file.jpg", b"file_content", "text/plain")},
+        auth=("admin", "password"),
     )
 
     assert service_mock.create_thumbnail.call_count == 0
@@ -94,6 +96,7 @@ def test_upload_video_poster(client, mocker):
     response = client.post(
         f"/api/v1/video/{video_object.id}/thumbnail",
         files={"file": ("file.jpg", b"file_content", "image/jpeg")},
+        auth=("admin", "password"),
     )
 
     assert service_mock.create_thumbnails.call_count == 1

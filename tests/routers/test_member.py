@@ -22,12 +22,14 @@ def test_create_member_folder(client, mocker):
 
     member_data = {"id": str(member_object.id), "url": member_object.url}
 
-    response = client.post("/api/v1/member", json=member_data)
+    response = client.post(
+        "/api/v1/member", json=member_data, auth=("admin", "password")
+    )
 
-    assert service_mock.create_folder_structure.call_count == 1
-    assert service_mock.create_folder_structure.call_args[0][0] == member_object
     assert response.status_code == 200
     assert response.json() == member_data
+    assert service_mock.create_folder_structure.call_count == 1
+    assert service_mock.create_folder_structure.call_args[0][0] == member_object
 
 
 def test_update_member_folder_no_id(client, mocker):
@@ -36,7 +38,9 @@ def test_update_member_folder_no_id(client, mocker):
 
     member_data = {"id": str(member_object.id), "url": member_object.url}
 
-    response = client.put("/api/v1/member", json=member_data)
+    response = client.put(
+        "/api/v1/member", json=member_data, auth=("admin", "password")
+    )
 
     assert service_mock.update_symlink.call_count == 0
     assert response.status_code == 404
@@ -49,7 +53,9 @@ def test_update_member_folder(client, mocker):
 
     member_data = {"id": str(member_object.id), "url": member_object.url}
 
-    response = client.put("/api/v1/member", json=member_data)
+    response = client.put(
+        "/api/v1/member", json=member_data, auth=("admin", "password")
+    )
 
     assert service_mock.update_symlink.call_count == 1
     assert service_mock.update_symlink.call_args[0][0] == member_object
@@ -64,6 +70,7 @@ def test_upload_member_picture_no_id(client, mocker):
     response = client.post(
         f"/api/v1/member/{member_object.id}/profilePicture",
         files={"file": ("file.jpg", "file_content", "image/jpeg")},
+        auth=("admin", "password"),
     )
 
     assert service_mock.create_profile_picture.call_count == 0
@@ -77,6 +84,7 @@ def test_upload_member_picture_not_image(client, mocker):
     response = client.post(
         f"/api/v1/member/{member_object.id}/profilePicture",
         files={"file": ("file.jpg", "file_content", "text/plain")},
+        auth=("admin", "password"),
     )
 
     assert service_mock.create_profile_picture.call_count == 0
@@ -92,6 +100,7 @@ def test_upload_member_picture(client, mocker):
     response = client.post(
         f"/api/v1/member/{member_object.id}/profilePicture",
         files={"file": ("file.jpg", "file_content", "image/jpeg")},
+        auth=("admin", "password"),
     )
 
     assert service_mock.create_profile_picture.call_count == 1
