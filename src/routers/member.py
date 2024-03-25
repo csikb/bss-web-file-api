@@ -17,7 +17,8 @@ service: MemberService = MemberService()
 
 @router.post("", response_model=Member)
 def create_member_folder(
-    member: Member, authorized: Annotated[None, Depends(authorize)]
+    member: Member,
+    authorized: Annotated[None, Depends(authorize)],  # pylint: disable=unused-argument
 ):
     """
     Create a folder structure for a member and return the member object.
@@ -31,7 +32,8 @@ def create_member_folder(
 
 @router.put("", response_model=Member)
 def update_member_folder(
-    member: Member, authorized: Annotated[None, Depends(authorize)]
+    member: Member,
+    authorized: Annotated[None, Depends(authorize)],  # pylint: disable=unused-argument
 ):
     """
     Update the folder structure for a member and return the member object.
@@ -48,7 +50,9 @@ def update_member_folder(
 
 @router.post("/{member_id}/profilePicture", response_model=UUID)
 async def upload_member_picture(
-    member_id: UUID, file: UploadFile, authorized: Annotated[None, Depends(authorize)]
+    member_id: UUID,
+    file: UploadFile,
+    authorized: Annotated[None, Depends(authorize)],  # pylint: disable=unused-argument
 ):
     """
     Upload a picture for a member to convert

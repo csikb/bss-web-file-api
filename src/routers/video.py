@@ -16,7 +16,10 @@ service: VideoService = VideoService()
 
 
 @router.post("", response_model=Video)
-def create_video_folder(video: Video, authorized: Annotated[None, Depends(authorize)]):
+def create_video_folder(
+    video: Video,
+    authorized: Annotated[None, Depends(authorize)],  # pylint: disable=unused-argument
+):
     """
     Create a folder structure for a video and return the video object.
     :param video: Video object
@@ -28,7 +31,10 @@ def create_video_folder(video: Video, authorized: Annotated[None, Depends(author
 
 
 @router.put("", response_model=Video)
-def update_video_folder(video: Video, authorized: Annotated[None, Depends(authorize)]):
+def update_video_folder(
+    video: Video,
+    authorized: Annotated[None, Depends(authorize)],  # pylint: disable=unused-argument
+):
     """
     Update the folder structure for a video and return the video object.
     If the video does not exist, return a 404.
@@ -44,7 +50,9 @@ def update_video_folder(video: Video, authorized: Annotated[None, Depends(author
 
 @router.post("/{video_id}/thumbnail", response_model=UUID)
 async def upload_video_poster(
-    video_id: UUID, file: UploadFile, authorized: Annotated[None, Depends(authorize)]
+    video_id: UUID,
+    file: UploadFile,
+    authorized: Annotated[None, Depends(authorize)],  # pylint: disable=unused-argument
 ):
     """
     Upload a picture for a video thumbnail to convert

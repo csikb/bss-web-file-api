@@ -1,3 +1,5 @@
+"""Security module for the FastAPI application."""
+
 import secrets
 from typing import Annotated
 
@@ -10,6 +12,12 @@ security = HTTPBasic()
 
 
 def authorize(credentials: Annotated[HTTPBasicCredentials, Depends(security)]):
+    """
+    Authorize the request with the correct username and password.
+    The correct username and password are stored in the settings.
+    :param credentials: the credentials from the request
+    :return:
+    """
     current_username_bytes = credentials.username.encode("utf8")
     correct_username_bytes = settings.username.encode("utf8")
     is_correct_username = secrets.compare_digest(
