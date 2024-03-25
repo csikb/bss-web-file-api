@@ -6,9 +6,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Response, UploadFile, status
 
-from security import authorize
-
 from ..models.member import Member
+from ..security import authorize
 from ..services.member import MemberService
 
 router = APIRouter(tags=["Member"], prefix="/api/v1/member")

@@ -6,9 +6,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Response, UploadFile, status
 
-from security import authorize
-
 from ..models.video import Video
+from ..security import authorize
 from ..services.video import VideoService
 
 router = APIRouter(tags=["Video"], prefix="/api/v1/video")
