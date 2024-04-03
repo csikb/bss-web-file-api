@@ -51,7 +51,8 @@ jobs:
           --cov-fail-under=100 \
           --cov-report=html \
           --cov-report json
-      - codecov/upload
+      - codecov/upload:
+          flags: unittests
       - store_artifacts:
           path: htmlcov
   integration:
