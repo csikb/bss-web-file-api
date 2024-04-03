@@ -13,6 +13,11 @@ class MemberService:
     def __init__(self, base_path: str):
         self.id_paths_base = Path(base_path, "m")
         self.url_paths_base = Path(base_path, "member")
+        self.profile_picture_sizes = [
+            ImgFormat(1920, 1080, "xl"),
+            ImgFormat(1280, 720, "l"),
+            ImgFormat(854, 480, "m"),
+        ]
 
     def create_folder_structure(self, member: Member):
         """
@@ -38,12 +43,7 @@ class MemberService:
         :return: None
         """
         profile_picture_path = Path(self.to_id_path(member_id), "profile")
-        profile_picture_sizes = [
-            ImgFormat(1920, 1080, "xl"),
-            ImgFormat(1280, 720, "l"),
-            ImgFormat(854, 480, "m"),
-        ]
-        create_images(img_file, profile_picture_path, profile_picture_sizes)
+        create_images(img_file, profile_picture_path, self.profile_picture_sizes)
 
     def update_symlink(self, member: Member):
         """

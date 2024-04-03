@@ -13,6 +13,11 @@ class VideoService:
     def __init__(self, base_path: str):
         self.id_paths_base = Path(base_path, "v")
         self.url_paths_base = Path(base_path, "video")
+        self.poster_sizes = [
+            ImgFormat(1920, 1080, "fhd"),
+            ImgFormat(1280, 720, "hd"),
+            ImgFormat(854, 480, "sd"),
+        ]
 
     def create_folder_structure(self, video: Video):
         """
@@ -40,12 +45,7 @@ class VideoService:
         :return: None
         """
         thumbnail_path = Path(self.to_id_path(video_id), "thumbnail")
-        poster_sizes = [
-            ImgFormat(1920, 1080, "fhd"),
-            ImgFormat(1280, 720, "hd"),
-            ImgFormat(854, 480, "sd"),
-        ]
-        create_images(img_file, thumbnail_path, poster_sizes)
+        create_images(img_file, thumbnail_path, self.poster_sizes)
 
     def update_symlinks(self, video: Video):
         """
