@@ -1,6 +1,7 @@
 """Member endpoints."""
 
 import re
+from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Response, UploadFile, status
@@ -8,21 +9,21 @@ from fastapi import APIRouter, Depends, Response, UploadFile, status
 from ..dependencies import get_member_service
 from ..models.member import Member
 from ..security import authorize
+from ..services.member import MemberService
 
 router = APIRouter(
     tags=["Member"], prefix="/api/v1/member", dependencies=[Depends(authorize)]
 )
 
-service = get_member_service()
-
 
 @router.post("")
 def create_member_folder(
-    member: Member,
+    member: Member, service: Annotated[MemberService, Depends(get_member_service)]
 ):
     """
     Create a folder structure for a member and return the member object.
     :param member: Member object
+    :param service: service dependency
     :return: 200 and the original member object
     """
     service.create_folder_structure(member)
@@ -31,12 +32,13 @@ def create_member_folder(
 
 @router.put("")
 def update_member_folder(
-    member: Member,
+    member: Member, service: Annotated[MemberService, Depends(get_member_service)]
 ):
     """
     Update the folder structure for a member and return the member object.
     If the member does not exist, return a 404.
     :param member: Member object
+    :param service: service dependency
     :return: 200 and the original member object
     """
     if not service.to_id_path(member.id).exists():
@@ -49,6 +51,7 @@ def update_member_folder(
 async def upload_member_picture(
     member_id: UUID,
     file: UploadFile,
+    service: Annotated[MemberService, Depends(get_member_service)],
 ):
     """
     Upload a picture for a member to convert
@@ -57,6 +60,7 @@ async def upload_member_picture(
     If the file is not an image, return a 500.
     :param member_id: the id of the member
     :param file: the image file
+    :param service: service dependency
     :return: 200 and the original member_id
     """
     # pylint: disable=duplicate-code
