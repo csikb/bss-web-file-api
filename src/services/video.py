@@ -4,14 +4,13 @@ from pathlib import Path
 from uuid import UUID
 
 from ..models.video import Video
-from ..settings import settings
 from .image import ImgFormat, create_images
 
 
 class VideoService:
     """Video service class."""
 
-    def __init__(self, base_path: str = settings.server_base_path):
+    def __init__(self, base_path: str):
         self.id_paths_base = Path(base_path, "v")
         self.url_paths_base = Path(base_path, "video")
 

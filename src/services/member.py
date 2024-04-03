@@ -4,14 +4,13 @@ from pathlib import Path
 from uuid import UUID
 
 from ..models.member import Member
-from ..settings import settings
 from .image import ImgFormat, create_images
 
 
 class MemberService:
     """Member service class."""
 
-    def __init__(self, base_path: str = settings.server_base_path):
+    def __init__(self, base_path: str):
         self.id_paths_base = Path(base_path, "m")
         self.url_paths_base = Path(base_path, "member")
 

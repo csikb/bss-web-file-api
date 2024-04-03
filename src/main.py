@@ -4,12 +4,11 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from .dependencies import get_member_service, get_video_service
 from .routers import health, member, video
-from .services.member import MemberService
-from .services.video import VideoService
 
-member_service = MemberService()
-video_service = VideoService()
+member_service = get_member_service()
+video_service = get_video_service()
 
 
 @asynccontextmanager

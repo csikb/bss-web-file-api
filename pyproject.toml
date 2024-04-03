@@ -33,7 +33,7 @@ testcontainers = "4.3.1"
 profile = "black"
 
 [tool.mypy]
-packages= "src"
+packages = "src"
 
 [build-system]
 requires = ["poetry-core"]

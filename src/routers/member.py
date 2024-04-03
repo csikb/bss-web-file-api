@@ -5,18 +5,21 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Response, UploadFile, status
 
+from ..dependencies import get_member_service
 from ..models.member import Member
 from ..security import authorize
-from ..services.member import MemberService
 
 router = APIRouter(
     tags=["Member"], prefix="/api/v1/member", dependencies=[Depends(authorize)]
 )
-service: MemberService = MemberService()
+
+service = get_member_service()
 
 
-@router.post("", response_model=Member)
-def create_member_folder(member: Member):
+@router.post("")
+def create_member_folder(
+    member: Member,
+):
     """
     Create a folder structure for a member and return the member object.
     :param member: Member object
@@ -26,8 +29,10 @@ def create_member_folder(member: Member):
     return member
 
 
-@router.put("", response_model=Member)
-def update_member_folder(member: Member):
+@router.put("")
+def update_member_folder(
+    member: Member,
+):
     """
     Update the folder structure for a member and return the member object.
     If the member does not exist, return a 404.
@@ -40,8 +45,11 @@ def update_member_folder(member: Member):
     return member
 
 
-@router.post("/{member_id}/profilePicture", response_model=UUID)
-async def upload_member_picture(member_id: UUID, file: UploadFile):
+@router.post("/{member_id}/profilePicture")
+async def upload_member_picture(
+    member_id: UUID,
+    file: UploadFile,
+):
     """
     Upload a picture for a member to convert
     and store the profile picture in different formats

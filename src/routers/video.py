@@ -5,6 +5,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Response, UploadFile, status
 
+from ..dependencies import get_video_service
 from ..models.video import Video
 from ..security import authorize
 from ..services.video import VideoService
@@ -12,11 +13,14 @@ from ..services.video import VideoService
 router = APIRouter(
     tags=["Video"], prefix="/api/v1/video", dependencies=[Depends(authorize)]
 )
-service: VideoService = VideoService()
+
+service: VideoService = get_video_service()
 
 
 @router.post("", response_model=Video)
-def create_video_folder(video: Video):
+def create_video_folder(
+    video: Video,
+):
     """
     Create a folder structure for a video and return the video object.
     :param video: Video object
@@ -26,8 +30,10 @@ def create_video_folder(video: Video):
     return video
 
 
-@router.put("", response_model=Video)
-def update_video_folder(video: Video):
+@router.put("")
+def update_video_folder(
+    video: Video,
+):
     """
     Update the folder structure for a video and return the video object.
     If the video does not exist, return a 404.
@@ -40,8 +46,11 @@ def update_video_folder(video: Video):
     return video
 
 
-@router.post("/{video_id}/thumbnail", response_model=UUID)
-async def upload_video_poster(video_id: UUID, file: UploadFile):
+@router.post("/{video_id}/thumbnail")
+async def upload_video_poster(
+    video_id: UUID,
+    file: UploadFile,
+):
     """
     Upload a picture for a video thumbnail to convert
     and store the thumbnail in different formats
