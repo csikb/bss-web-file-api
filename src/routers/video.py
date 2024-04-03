@@ -1,6 +1,7 @@
 """Video endpoints"""
 
 import re
+from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Response, UploadFile, status
@@ -14,12 +15,11 @@ router = APIRouter(
     tags=["Video"], prefix="/api/v1/video", dependencies=[Depends(authorize)]
 )
 
-service: VideoService = get_video_service()
-
 
 @router.post("", response_model=Video)
 def create_video_folder(
     video: Video,
+    service: Annotated[VideoService, Depends(get_video_service)],
 ):
     """
     Create a folder structure for a video and return the video object.
@@ -33,6 +33,7 @@ def create_video_folder(
 @router.put("")
 def update_video_folder(
     video: Video,
+    service: Annotated[VideoService, Depends(get_video_service)],
 ):
     """
     Update the folder structure for a video and return the video object.
@@ -50,6 +51,7 @@ def update_video_folder(
 async def upload_video_poster(
     video_id: UUID,
     file: UploadFile,
+    service: Annotated[VideoService, Depends(get_video_service)],
 ):
     """
     Upload a picture for a video thumbnail to convert

@@ -18,7 +18,8 @@ router = APIRouter(
 
 @router.post("")
 def create_member_folder(
-    member: Member, service: Annotated[MemberService, Depends(get_member_service)]
+    member: Member,
+    service: Annotated[MemberService, Depends(get_member_service)],
 ):
     """
     Create a folder structure for a member and return the member object.
@@ -32,7 +33,8 @@ def create_member_folder(
 
 @router.put("")
 def update_member_folder(
-    member: Member, service: Annotated[MemberService, Depends(get_member_service)]
+    member: Member,
+    service: Annotated[MemberService, Depends(get_member_service)],
 ):
     """
     Update the folder structure for a member and return the member object.
