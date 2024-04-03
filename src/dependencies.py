@@ -7,14 +7,19 @@ from .settings import Settings
 
 @lru_cache
 def get_settings() -> Settings:
+    print("Loading settings")
     return Settings()
 
 
-def get_member_service(settings=get_settings()) -> MemberService:
+@lru_cache
+def get_member_service() -> MemberService:
     """Get the member service."""
-    return MemberService(settings.server_base_path)
+    print("Loading member service")
+    return MemberService(get_settings().server_base_path)
 
 
-def get_video_service(settings=get_settings()) -> VideoService:
+@lru_cache
+def get_video_service() -> VideoService:
     """Get the video service."""
-    return VideoService(settings.server_base_path)
+    print("Loading video service")
+    return VideoService(get_settings().server_base_path)
