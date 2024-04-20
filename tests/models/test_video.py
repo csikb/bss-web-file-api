@@ -3,7 +3,7 @@ from uuid import UUID
 import pytest
 from pydantic import ValidationError
 
-from src.models.video import Video
+from bss_web_file_server.models.video import Video
 
 valid_uid = UUID("{12345678-1234-5678-1234-567812345678}")
 valid_urls = ["url1", "url2"]

@@ -1,12 +1,12 @@
 from fastapi.testclient import TestClient
 from pytest_mock import MockerFixture
 
-from src.main import app
+from bss_web_file_server.main import app
 
 
 def test_main_startup(mocker: MockerFixture):
-    mock_video_service = mocker.patch("src.main.video_service")
-    mock_member_service = mocker.patch("src.main.member_service")
+    mock_video_service = mocker.patch("bss_web_file_server.main.video_service")
+    mock_member_service = mocker.patch("bss_web_file_server.main.member_service")
     mock_member_service.create_base_path = mocker.Mock()
     mock_video_service.create_base_path = mocker.Mock()
 

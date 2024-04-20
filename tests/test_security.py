@@ -3,7 +3,7 @@ from fastapi import Depends, FastAPI
 from fastapi.security import HTTPBasicCredentials
 from fastapi.testclient import TestClient
 
-from src.security import authorize
+from bss_web_file_server.security import authorize
 
 
 @pytest.fixture
@@ -19,7 +19,7 @@ def client():
 
 def test_authorize_correct_credentials(mocker, client):
     credentials = HTTPBasicCredentials(username="admin", password="password")
-    mocker.patch("src.security.security", return_value=credentials)
+    mocker.patch("bss_web_file_server.security.security", return_value=credentials)
 
     response = client.get(
         "/secure-endpoint", auth=(credentials.username, credentials.password)
@@ -31,7 +31,7 @@ def test_authorize_correct_credentials(mocker, client):
 
 def test_authorize_incorrect_credentials(mocker, client):
     credentials = HTTPBasicCredentials(username="admin", password="password")
-    mocker.patch("src.security.security", return_value=credentials)
+    mocker.patch("bss_web_file_server.security.security", return_value=credentials)
 
     response = client.get("/secure-endpoint", auth=("wrong", "wrong"))
 

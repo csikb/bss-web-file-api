@@ -2,8 +2,12 @@
 name = "bss-web-file-server"
 description = "BSS file server API"
 authors = ["Bence Csik <bence@csik.dev>"]
-readme = "README.md"
-package-mode = false
+version = "1.0.0"
+packages = [{include = "bss_web_file_server", from = "src"}]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
 fastapi = {version="0.110.1", extras=["all"]}
@@ -33,8 +37,4 @@ testcontainers = "4.3.3"
 profile = "black"
 
 [tool.mypy]
-packages= "src"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+packages = "src"

@@ -2,8 +2,8 @@ import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from src.models.member import Member
-from src.routers import member
+from bss_web_file_server.models.member import Member
+from bss_web_file_server.routers import member
 
 
 @pytest.fixture
@@ -17,7 +17,7 @@ member_object = Member(id="00000000-0000-0000-0000-000000000000", url="bcsik")
 
 
 def test_create_member_folder(client, mocker):
-    service_mock = mocker.patch("src.routers.member.service")
+    service_mock = mocker.patch("bss_web_file_server.routers.member.service")
     service_mock.create_folder_structure.return_value = None
 
     member_data = {"id": str(member_object.id), "url": member_object.url}
@@ -33,7 +33,7 @@ def test_create_member_folder(client, mocker):
 
 
 def test_update_member_folder_no_id(client, mocker):
-    service_mock = mocker.patch("src.routers.member.service")
+    service_mock = mocker.patch("bss_web_file_server.routers.member.service")
     service_mock.to_id_path.return_value.exists.return_value = False
 
     member_data = {"id": str(member_object.id), "url": member_object.url}
@@ -47,7 +47,7 @@ def test_update_member_folder_no_id(client, mocker):
 
 
 def test_update_member_folder(client, mocker):
-    service_mock = mocker.patch("src.routers.member.service")
+    service_mock = mocker.patch("bss_web_file_server.routers.member.service")
     service_mock.to_id_path.return_value.exists.return_value = True
     service_mock.update_symlink.return_value = None
 
@@ -64,7 +64,7 @@ def test_update_member_folder(client, mocker):
 
 
 def test_upload_member_picture_no_id(client, mocker):
-    service_mock = mocker.patch("src.routers.member.service")
+    service_mock = mocker.patch("bss_web_file_server.routers.member.service")
     service_mock.to_id_path.return_value.exists.return_value = False
 
     response = client.post(
@@ -78,7 +78,7 @@ def test_upload_member_picture_no_id(client, mocker):
 
 
 def test_upload_member_picture_not_image(client, mocker):
-    service_mock = mocker.patch("src.routers.member.service")
+    service_mock = mocker.patch("bss_web_file_server.routers.member.service")
     service_mock.to_id_path.return_value.exists.return_value = True
 
     response = client.post(
@@ -93,7 +93,7 @@ def test_upload_member_picture_not_image(client, mocker):
 
 
 def test_upload_member_picture(client, mocker):
-    service_mock = mocker.patch("src.routers.member.service")
+    service_mock = mocker.patch("bss_web_file_server.routers.member.service")
     service_mock.to_id_path.return_value.exists.return_value = True
     service_mock.create_profile_picture.return_value = None
 

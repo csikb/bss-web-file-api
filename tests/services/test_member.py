@@ -3,8 +3,8 @@ from uuid import uuid4
 
 import pytest
 
-from src.models.member import Member
-from src.services.member import MemberService
+from bss_web_file_server.models.member import Member
+from bss_web_file_server.services.member import MemberService
 
 id = uuid4()
 member = Member(id=id, url="test_url")
@@ -58,7 +58,9 @@ def test_update_symlink_no_id(member_service):
 
 
 def test_create_profile_picture(member_service, mocker):
-    mock_create_images = mocker.patch("src.services.member.create_images")
+    mock_create_images = mocker.patch(
+        "bss_web_file_server.services.member.create_images"
+    )
     mock_create_images.return_value = None
     member_service.create_folder_structure(member)
 

@@ -2,7 +2,7 @@ import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from src.routers import health
+from bss_web_file_server.routers import health
 
 
 @pytest.fixture

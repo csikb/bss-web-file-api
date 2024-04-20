@@ -1,4 +1,4 @@
-from src.settings import Settings
+from bss_web_file_server.settings import Settings
 
 
 def test_settings_default_values():

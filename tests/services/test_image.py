@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from src.services.image import ImgFormat, create_images
+from bss_web_file_server.services.image import ImgFormat, create_images
 
 
 def test_create_images(tmp_path):
