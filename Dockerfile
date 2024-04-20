@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=on
 
 COPY ./pyproject.toml ./poetry.lock ./
-COPY ./src ./src
+COPY ./src/bss_web_file_server/__init__.py ./src/bss_web_file_server/
 RUN pip wheel --wheel-dir ./wheels .
 
 
@@ -21,6 +21,7 @@ USER nonroot:nonroot
 WORKDIR /home/nonroot/app
 
 COPY --from=builder /app ./
+COPY ./src ./src
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
