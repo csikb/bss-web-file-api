@@ -3,11 +3,11 @@ orbs:
   python: circleci/python@2.1.1
   docker: circleci/docker@2.6.0
   github-cli: circleci/github-cli@2.3.0
-  codecov: codecov/codecov@4.0.1
+  codecov: codecov/codecov@4.1.0
 executors:
   python:
     docker:
-      - image: cimg/python:3.12.2
+      - image: cimg/python:3.12.3
   python-machine:
     machine:
       docker_layer_caching: true
