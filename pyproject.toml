@@ -25,7 +25,7 @@ isort = "5.13.2"
 mypy = "1.10.0"
 pylint = "3.1.0"
 pre-commit = "3.7.1"
-types-Pillow = "10.2.0.20240423"
+types-Pillow = "10.2.0.20240511"
 
 [tool.poetry.group.test.dependencies]
 pytest = "8.2.0"
