@@ -16,7 +16,7 @@ pillow-avif-plugin = "1.4.3"
 python = "^3.12"
 # used for UploadFile
 python-multipart = "0.0.9"
-requests = "2.31.0"
+requests = "2.32.0"
 uvicorn = {version = "0.29.0", extras = ["standard"]}
 
 [tool.poetry.group.dev.dependencies]
