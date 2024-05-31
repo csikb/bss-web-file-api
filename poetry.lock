@@ -1518,13 +1518,13 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "testcontainers"
-version = "4.5.0"
+version = "4.5.1"
 description = "Python library for throwaway instances of anything that can run in a Docker container"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "testcontainers-4.5.0-py3-none-any.whl", hash = "sha256:6833df7db4cf8403feb1e4daf69b02a091d9da37aa3e8e808c756abbddb41cf3"},
-    {file = "testcontainers-4.5.0.tar.gz", hash = "sha256:e8610985cae2f0bc4bc3991896a47d5547f3ed896192970826151059a75f4ac2"},
+    {file = "testcontainers-4.5.1-py3-none-any.whl", hash = "sha256:0cbcb92932f00f9a60ee7bb815cab9e5a716a8258a8c7185751df6afef098dce"},
+    {file = "testcontainers-4.5.1.tar.gz", hash = "sha256:a8476d2b34953206840be5513645544d5a5942672010906c67dc0987dcffc208"},
 ]
 
 [package.dependencies]
@@ -2039,4 +2039,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "721f974c3f401a3b7121a69d1894de96ebcda6da60b179c43e9ad86893efb307"
+content-hash = "71e3b96e1f3e613d0ee8b9f71901d847c9dc4ac05b2a450e16cf5598f713d524"
