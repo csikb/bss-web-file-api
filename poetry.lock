@@ -1532,13 +1532,13 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "testcontainers"
-version = "4.7.2"
+version = "4.8.0"
 description = "Python library for throwaway instances of anything that can run in a Docker container"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "testcontainers-4.7.2-py3-none-any.whl", hash = "sha256:23b13cf8078f615a08c75197f227796d90c46df92d2b282ae7c39b1fc1a9c9ed"},
-    {file = "testcontainers-4.7.2.tar.gz", hash = "sha256:9976b1cdcdeb9feeae6a477073e7c8b02cd40ea44f1daa34b5da6d2c918dff0d"},
+    {file = "testcontainers-4.8.0-py3-none-any.whl", hash = "sha256:0b85d787e5b1f8b32042704d23b6c54787bf6751d2d3cfee2c031349ef2eea30"},
+    {file = "testcontainers-4.8.0.tar.gz", hash = "sha256:56153bb5938694844f0e6bd0cf82e19dd6a6516bc29881440e273939201a42d5"},
 ]
 
 [package.dependencies]
@@ -1549,10 +1549,12 @@ wrapt = "*"
 
 [package.extras]
 arangodb = ["python-arango (>=7.8,<8.0)"]
+aws = ["boto3", "httpx"]
 azurite = ["azure-storage-blob (>=12.19,<13.0)"]
 chroma = ["chromadb-client"]
 clickhouse = ["clickhouse-driver"]
 cosmosdb = ["azure-cosmos"]
+db2 = ["ibm_db_sa", "sqlalchemy"]
 generic = ["httpx"]
 google = ["google-cloud-datastore (>=2)", "google-cloud-pubsub (>=2)"]
 influxdb = ["influxdb", "influxdb-client"]
@@ -1573,6 +1575,7 @@ qdrant = ["qdrant-client"]
 rabbitmq = ["pika"]
 redis = ["redis"]
 registry = ["bcrypt"]
+scylla = ["cassandra-driver (==3.29.1)"]
 selenium = ["selenium"]
 sftp = ["cryptography"]
 test-module-import = ["httpx"]
@@ -2059,4 +2062,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "a23351c89da9092cb8bb91934d4135858d6e74fdf342f362c1e0136c2a2bda14"
+content-hash = "bfda56ff13a8a1c9ce68ba840dccfae708b8c1ffa29ac13640453e0eea60bb22"
